@@ -1,14 +1,24 @@
 <html>
   <head>
-    <title>Parcel Sandbox</title>
+    <title>Infested Simulator</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./styles.scss">
   </head>
 
   <body>
     <canvas id="canvas" width="1000px" height="1000px"> </canvas>
     <canvas id="graph_canvas" width="1000px" height="200px"> </canvas>
-
+    <div class="status">
+      <div class="option" id="option">
+        <span class="title">Recoverable Frame</span><input id="recoverable_date" type="number" value="200"/><br>
+        <span class="title">Cure Rate</span><input id="cure_rate" type="number" value="0.004"/><br>
+        <button id="start"> Start </button>
+      </div>
+      <div class="result" id="result">
+        <span class="title">Recovered :</span><span class="count" id="recovered_count">0</span><br>
+        <span class="title">Healthy   :</span><span class="count" id="healthy_count">99</span><br>
+        <span class="title">Infected  :</span><span class="count" id="infected_count">1</span><br>
+      </div>
+    </div>
     <script src="index.ts"></script>
   </body>
 </html>

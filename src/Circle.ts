@@ -1,27 +1,12 @@
-import {mat2} from 'gl-matrix';
+import {CANVAS_SIZE, COLOR_MAP, colorState} from './Common';
+import {StatusData} from './Data';
 
-const CANVAS_SIZE = 1000;
 const MAX_SPEED = 5;
 const RADIUS = 10;
 const END_LIMIT = (CANVAS_SIZE - (RADIUS * 2));
-
-
-export enum colorState {
-    alive = 'alive',
-    infected = 'infected',
-    recovered = 'recovered',
-    dead = 'dead',
-}
-
-const COLOR_MAP: { [key in keyof typeof colorState]: string } = {
-    alive: '#0000FF',
-    infected: '#FF0000',
-    recovered: '#00FF00',
-    dead: '#D8DBE3',
-};
-
-console.log('aa', COLOR_MAP);
-
+//
+// const RECOVERABLE_DATE = 200;
+// const CURE_RATE = 0.001;
 
 export class Circle {
     private _x: number = Math.round(END_LIMIT * Math.random()) + RADIUS;
@@ -31,6 +16,7 @@ export class Circle {
     private _mvX: number = Math.round(MAX_SPEED * (0.5 - Math.random()));
     private _mvY: number = Math.round(MAX_SPEED * (0.5 - Math.random()));
     private _state: colorState = colorState.alive;
+    private _infectedDays: number = 0;
 
     set x(value: number) {
         this._x = value;
@@ -86,8 +72,9 @@ export class Circle {
 
 
     public collide(circle: Circle) {
-        if (this._state !== colorState.dead && circle.state !== colorState.dead) {
-            this._state = (this._state === colorState.infected || circle._state === colorState.infected) ? colorState.infected : colorState.alive;
+        if (this._state === colorState.alive && circle._state === colorState.infected) {
+            this._state = colorState.infected;
+            this._infectedDays = 1;
         }
     }
 
@@ -101,14 +88,26 @@ export class Circle {
         }
     }
 
+    public passTime() {
+        if (this.state === colorState.infected) {
+            this._infectedDays++;
+            if (this._infectedDays > StatusData.RECOVERABLE_DATE) {
+                this._gotcha();
+            }
+        }
+    }
+
+    private _gotcha() {
+        if (this.state === colorState.infected && Math.random() < StatusData.CURE_RATE) {
+            this.state = colorState.recovered;
+        }
+    }
+
     public draw(renderingContext: CanvasRenderingContext2D) {
         renderingContext.beginPath();
         renderingContext.fillStyle = COLOR_MAP[this._state];
         renderingContext.arc(this._x, this._y, this._r, 0, Math.PI * 2, false);
         renderingContext.stroke();
         renderingContext.fill();
-
-
-        // renderingContext.moveTo(this._x, this._y);
     }
 }

@@ -1,5 +1,8 @@
-import {Circle, colorState} from './circle';
-import {Graph} from './graph';
+import './styles.scss';
+import {Circle} from './Circle';
+import {Graph} from './Graph';
+import {colorState, getCount} from './Common';
+import {StatusView} from './StatusView';
 
 const canvasEl: HTMLCanvasElement = document.getElementById(
   'canvas'
@@ -11,7 +14,6 @@ const graphCanvasEl: HTMLCanvasElement = document.getElementById(
 const renderingContext = canvasEl.getContext('2d')!;
 const graphRenderingContext = graphCanvasEl.getContext('2d')!;
 
-
 const LENGTH = 100;
 const circles: Circle[] = [];
 for(let i = 0; i < LENGTH; i++) {
@@ -22,34 +24,35 @@ for(let i = 0; i < LENGTH; i++) {
 circles[0].state = colorState.infected;
 
 const graph = new Graph();
-
-const getCount = () => {
-    return circles.reduce((v: number, c: Circle) => {
-        if (c.state === colorState.infected) {
-            v += 1;
-        }
-        return v;
-    }, 0);
-};
-
-const onGraphDraw = () => {
-    graph.draw(graphRenderingContext, getCount());
-};
-
 let refreshDrawIndex = 0;
 
-const onDraw = () => {
-    renderingContext.clearRect(0,0, 1000, 1000);
-    circles.forEach(c => c.move());
-    circles.forEach(c => c.draw(renderingContext));
-    circles.forEach(c => circles.forEach(v => v !== c && c.iscollision(v) && c.collide(v)));
-    if (refreshDrawIndex++ > 2) {
-        onGraphDraw();
-        refreshDrawIndex = 0;
-    }
+const onStart = () => {
     requestAnimationFrame(onDraw);
 };
 
+const statusView = new StatusView(onStart);
 
-onGraphDraw();
-requestAnimationFrame(onDraw);
+const onDraw = () => {
+    renderingContext.clearRect(0,0, 1000, 1000);
+
+    circles.forEach(c => {
+        circles.forEach(v => v !== c && c.iscollision(v) && c.collide(v));
+        c.move();
+        c.passTime();
+        c.draw(renderingContext);
+    });
+    const infectedCount = getCount(circles, colorState.infected);
+    const recoveredCount = getCount(circles, colorState.recovered)
+    if (refreshDrawIndex++ > 2) {
+        graph.draw(graphRenderingContext, infectedCount, recoveredCount);
+        refreshDrawIndex = 0;
+    }
+    statusView.updateResult(infectedCount, recoveredCount);
+    requestAnimationFrame(onDraw);
+};
+
+circles.forEach(c => {
+    c.draw(renderingContext);
+});
+graph.draw(graphRenderingContext, 1, 0);
+// requestAnimationFrame(onDraw);

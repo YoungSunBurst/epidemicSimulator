@@ -1,11 +1,14 @@
 body {
-   // border: black solid 1px;
+  display: flex;
+  flex-direction: column;
 }
 
 
 #canvas {
-  width: 500px;
-  height: 500px;
+  max-width: 500px;
+  width: 90vw;
+  max-height: 500px;
+  height: 90vw;
   border: black solid 1px;
   //background-color: black;
 }
@@ -14,7 +17,30 @@ body {
   //position: absolute;
   //top: 500px;
   //left: 0;
-  background-color: blue;
-  width: 500px;
+  background-color: #32C5FF;
+  width: 90vw;
+  max-width: 500px;
   height: 100px;
+  border: black solid 1px;
+}
+
+.status {
+  width: 90vw;
+  max-width: 500px;
+  height: 100px;
+  border: black solid 1px;
+  .title {
+    width: 200px;
+    display: inline-block;
+  }
+  .count {
+    width: 100px;
+    text-align: right;
+  }
+  input {
+    text-align: right;
+  }
+  .result {
+    display: none;
+  }
 }
