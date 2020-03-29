@@ -4,7 +4,7 @@
 ## Demo
 https://epidemic-simulator-ten.now.sh/
 
-## Conflict rules
+## Collision rules
 https://cloud.protopie.io/p/779a4868bb
 
 ## Motivation
