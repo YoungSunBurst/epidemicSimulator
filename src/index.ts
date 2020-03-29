@@ -31,12 +31,12 @@ const graph = new Graph();
 let refreshDrawIndex = 0;
 
 const onStart = () => {
-    requestAnimationFrame(onDraw);
+    requestAnimationFrame(onPaint);
 };
 
 const statusView = new StatusView(onStart);
 
-const onDraw = () => {
+const onPaint = () => {
     renderingContext.clearRect(0,0, 1000, 1000);
 
     circles.forEach(c => {
@@ -54,11 +54,10 @@ const onDraw = () => {
         refreshDrawIndex = 0;
     }
     statusView.updateResult(infectedCount, recoveredCount);
-    requestAnimationFrame(onDraw);
+    requestAnimationFrame(onPaint);
 };
 
 circles.forEach(c => {
     c.draw(renderingContext);
 });
 graph.draw(graphRenderingContext, 1, 0);
-// requestAnimationFrame(onDraw);

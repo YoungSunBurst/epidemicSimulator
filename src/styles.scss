@@ -10,13 +10,9 @@ body {
   max-height: 500px;
   height: 90vw;
   border: black solid 1px;
-  //background-color: black;
 }
 
 #graph_canvas {
-  //position: absolute;
-  //top: 500px;
-  //left: 0;
   background-color: #32C5FF;
   width: 90vw;
   max-width: 500px;
@@ -27,7 +23,6 @@ body {
 .status {
   width: 90vw;
   max-width: 500px;
-  //height: 120px;
   border: black solid 1px;
   .title {
     width: 200px;

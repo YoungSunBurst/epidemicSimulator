@@ -4,7 +4,6 @@ export const TOTALCOUNT = 100;
 
 export const CANVAS_SIZE = 1000;
 
-
 export enum colorState {
     alive = 'alive',
     infected = 'infected',

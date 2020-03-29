@@ -26,11 +26,11 @@ export class StatusView {
     }
 
     private _clickStart() {
-        console.log('clic;');
         StatusData.RECOVERABLE_DATE = parseFloat(this._recoverable_date.value);
         StatusData.CURE_RATE = parseFloat(this._cure_rate.value);
         this._optionEl.style.display = 'none';
         this._resultEl.style.display = 'block';
+        this._startEl.removeEventListener('click', this._clickStart.bind(this));
         this._startFunc();
     }
 
@@ -39,5 +39,4 @@ export class StatusView {
         this._healthy_count.innerText = (TOTALCOUNT - infectedCount - recoveredCount) + '';
         this._infected_count.innerText = infectedCount + '';
     }
-
 }
