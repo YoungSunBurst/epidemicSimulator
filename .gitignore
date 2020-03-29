@@ -2,3 +2,5 @@
 /.idea/
 /dist/
 /.cache/
+
+.now

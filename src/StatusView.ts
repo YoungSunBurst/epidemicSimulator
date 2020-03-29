@@ -1,5 +1,5 @@
 import {StatusData} from './Data';
-import {TOTALCOUNT} from './common';
+import {TOTALCOUNT} from './Common';
 
 export class StatusView {
     private _optionEl: HTMLDivElement;
