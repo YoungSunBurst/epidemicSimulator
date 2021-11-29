@@ -2,7 +2,6 @@
   "name": "epidemic-simulator",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "parcel src/index.html",
@@ -18,13 +17,13 @@
     "@types/gl-matrix": "^2.4.5",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.2",
-    "gl-matrix": "^3.2.1",
     "mocha": "^7.1.0",
     "sass": "^1.26.3",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "parcel": "^2.0.1"
+    "parcel": "^2.0.1",
+    "gl-matrix": "^3.2.1"
   }
 }
