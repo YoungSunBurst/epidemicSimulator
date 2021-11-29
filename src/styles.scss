@@ -3,26 +3,24 @@ body {
   flex-direction: column;
 }
 
-
 #canvas {
-  max-width: 500px;
-  width: 90vw;
-  max-height: 500px;
-  height: 90vw;
+  max-width: 100%;
+  width: 500px;
+  height: auto;
   border: black solid 1px;
 }
 
 #graph_canvas {
   background-color: #32C5FF;
-  width: 90vw;
-  max-width: 500px;
-  height: 100px;
+  max-width: 100%;
+  width: 500px;
+  height: auto;
   border: black solid 1px;
 }
 
 .status {
-  width: 90vw;
-  max-width: 500px;
+  max-width: 100%;
+  width: 500px;
   border: black solid 1px;
   .title {
     width: 200px;

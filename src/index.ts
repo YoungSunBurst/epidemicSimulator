@@ -11,7 +11,7 @@ const graphCanvasEl: HTMLCanvasElement = document.getElementById(
     'graph_canvas'
 ) as HTMLCanvasElement;
 
-const renderingContext = canvasEl.getContext('2d')!;
+const ctx2d = canvasEl.getContext('2d')!;
 const graphRenderingContext = graphCanvasEl.getContext('2d')!;
 
 const LENGTH = 100;
@@ -20,10 +20,6 @@ for(let i = 0; i < LENGTH; i++) {
     const circle = new Circle(circles);
     circles.push(circle);
 }
-//
-// circles[0] = new Circle(10, 10, 2, 2);
-//
-// circles[1] = new Circle(200, 205, 0, 0);
 
 circles[0].state = colorState.infected;
 
@@ -37,7 +33,7 @@ const onStart = () => {
 const statusView = new StatusView(onStart);
 
 const onPaint = () => {
-    renderingContext.clearRect(0,0, 1000, 1000);
+    ctx2d.clearRect(0,0, canvasEl.width, canvasEl.height);
 
     circles.forEach(c => {
         circles.forEach(v => v !== c && c.iscollision(v) && c.collide(v));
@@ -45,7 +41,7 @@ const onPaint = () => {
     circles.forEach( c => {
         c.move();
         c.passTime();
-        c.draw(renderingContext);
+        c.draw(ctx2d);
     });
     const infectedCount = getCount(circles, colorState.infected);
     const recoveredCount = getCount(circles, colorState.recovered);
@@ -58,6 +54,6 @@ const onPaint = () => {
 };
 
 circles.forEach(c => {
-    c.draw(renderingContext);
+    c.draw(ctx2d);
 });
 graph.draw(graphRenderingContext, 1, 0);
